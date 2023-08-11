@@ -7,7 +7,7 @@ import (
 )
 
 type DatetimeField struct {
-	searches.DatetimeRange
+	searches.Datetime
 }
 
 // 日期时间

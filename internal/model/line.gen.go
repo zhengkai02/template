@@ -12,13 +12,14 @@ const TableNameLine = "t_line"
 
 // Line mapped from table <t_line>
 type Line struct {
-	ID         int64     `gorm:"column:id;type:int(8);primaryKey;autoIncrement:true;comment:自增主键" json:"id"` // 自增主键
-	StartPort  string    `gorm:"column:start_port;type:varchar(255);not null;uniqueIndex:idx_line,priority:1" json:"start_port"`
-	EndPort    string    `gorm:"column:end_port;type:varchar(255);not null;uniqueIndex:idx_line,priority:2" json:"end_port"`
-	Desc       string    `gorm:"column:desc;type:varchar(255)" json:"desc"`
-	Status     bool      `gorm:"column:status;type:tinyint(1);not null" json:"status"`
-	CreateTime time.Time `gorm:"column:create_time;type:datetime;not null;default:2023-07-24 00:00:00" json:"create_time"`
-	UpdateTime time.Time `gorm:"column:update_time;type:datetime;not null;default:2023-07-24 00:00:00" json:"update_time"`
+	ID            int64     `gorm:"column:id;type:int(8);primaryKey;autoIncrement:true;comment:自增主键" json:"id"` // 自增主键
+	StartPortCode string    `gorm:"column:start_port_code;type:varchar(255);not null;uniqueIndex:idx_line,priority:1" json:"start_port_code"`
+	StartPortName string    `gorm:"column:start_port_name;type:varchar(255)" json:"start_port_name"`
+	EndPortCode   string    `gorm:"column:end_port_code;type:varchar(255);not null;uniqueIndex:idx_line,priority:2" json:"end_port_code"`
+	EndPortName   string    `gorm:"column:end_port_name;type:varchar(255)" json:"end_port_name"`
+	Status        int32     `gorm:"column:status;type:tinyint(4);not null" json:"status"`
+	CreateTime    time.Time `gorm:"column:create_time;type:datetime;not null;default:2023-07-24 00:00:00" json:"create_time"`
+	UpdateTime    time.Time `gorm:"column:update_time;type:datetime;not null;default:2023-07-24 00:00:00" json:"update_time"`
 }
 
 // TableName Line's table name

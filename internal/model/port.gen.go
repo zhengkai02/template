@@ -5,6 +5,9 @@
 package model
 
 import (
+	"fmt"
+	"github.com/quarkcms/quark-go/v2/pkg/app/admin/component/form/fields/selectfield"
+	"github.com/quarkcms/quark-go/v2/pkg/dal/db"
 	"time"
 )
 
@@ -24,4 +27,23 @@ type Port struct {
 // TableName Port's table name
 func (*Port) TableName() string {
 	return TableNamePort
+}
+
+// 获取列表
+func (p *Port) Options() (options []*selectfield.Option, Error error) {
+	getList := []Port{}
+	err := db.Client.Find(&getList).Error
+	if err != nil {
+		return options, err
+	}
+
+	for _, v := range getList {
+		option := &selectfield.Option{
+			Label: fmt.Sprintf("%s-%s", v.Code, v.Name),
+			Value: v.Code,
+		}
+		options = append(options, option)
+	}
+
+	return options, nil
 }

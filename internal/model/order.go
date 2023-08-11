@@ -1,9 +1,9 @@
 package model
 
-type Ship struct {
-	LineNo   int    `json:"LineNo"`
-	LineName string `json:"LineName"`
-	ShipName string `json:"ShipName"`
+type Order struct {
+	OrderId  int    `json:"orderId"`
+	LineName string `json:"lineName"`
+	ShipName string `json:"shipName"`
 }
 
 //func (s *Ship) Options() (options []*selectfield.Option, Error error) {

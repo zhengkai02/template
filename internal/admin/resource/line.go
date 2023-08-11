@@ -37,14 +37,14 @@ func (p *Line) Fields(ctx *builder.Context) []interface{} {
 	return []interface{}{
 		field.ID("id", "ID"),
 
-		field.Text("start_port", "出发地").
+		field.Text("start_port_code", "出发地编码").
 			SetRules([]*rule.Rule{
-				rule.Required(true, "港口编码必须填写"),
+				rule.Required(true, "出发地编码必须填写"),
 			}).SetRequired(),
 
-		field.Text("end_port", "目的地").SetRequired(),
-		field.Text("desc", "描述"),
-
+		field.Text("end_port_code", "目的地编码").SetRequired(),
+		field.Text("start_port_name", "出发地"),
+		field.Text("end_port_name", "目的地"),
 		//field.Editor("content", "内容").OnlyOnForms(),
 		field.Datetime("create_time", "创建时间"),
 		field.Datetime("update_time", "更新时间"),
@@ -58,14 +58,13 @@ func (p *Line) Fields(ctx *builder.Context) []interface{} {
 
 // 搜索
 func (p *Line) Searches(ctx *builder.Context) []interface{} {
-	//options, _ := (&model.Line{}).TreeSelect(false)
-
+	options, _ := (&model.Port{}).Options()
 	return []interface{}{
-		searches.Input("start_port", "触发港口"),
-		searches.Input("end_port", "到达港口"),
-		searches.Input("`desc`", "描述"),
+		searches.Select("start_port_code", "出发", options),
+		searches.Select("end_port_code", "到达", options),
+		searches.Input("start_port_code", "出发港口"),
+		searches.Input("end_port_code", "到达港口"),
 		searches.Status(),
-		searches.DatetimeRange("create_time", "创建时间"),
 	}
 }
 

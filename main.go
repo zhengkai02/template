@@ -9,6 +9,10 @@ import (
 	"github.com/quarkcms/quark-go/v2/pkg/builder"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"io"
+	"os"
+
+	echomiddleware "github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
@@ -57,6 +61,21 @@ func main() {
 	b.GET("/", func(ctx *builder.Context) error {
 		return ctx.String(200, "Hello World!")
 	})
+
+	// 开启Debug模式
+	b.Echo().Debug = true
+
+	// 日志文件位置
+	//f, _ := os.OpenFile("./app.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
+
+	// 记录日志
+	b.Echo().Logger.SetOutput(io.MultiWriter(os.Stdout))
+
+	// 日志中间件
+	//b.Echo().Use(echomiddleware.Logger())
+
+	// 崩溃后自动恢复
+	b.Echo().Use(echomiddleware.Recover())
 
 	// 启动服务
 	b.Run(":3000")

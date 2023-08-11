@@ -7,7 +7,7 @@ import (
 )
 
 type DateField struct {
-	searches.DateRange
+	searches.Date
 }
 
 // 日期范围

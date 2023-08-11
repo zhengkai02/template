@@ -6,4 +6,6 @@ import "github.com/quarkcms/quark-go/v2/internal/admin/resource"
 var Provider = []interface{}{
 	&resource.Article{},
 	&resource.Line{},
+	&resource.Ship{},
+	&resource.Order{},
 }
